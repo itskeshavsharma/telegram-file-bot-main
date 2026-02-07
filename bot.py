@@ -43,27 +43,27 @@ def help_command(update, context):
         "⚠️ Adult or illegal content = permanent ban",
         parse_mode="MARKDOWN"
     )
-def is_user_joined(user_id, context):
-    try:
-        member = context.bot.get_chat_member(FORCE_CHANNEL, user_id)
-        return member.status in ["member", "administrator", "creator"]
-    except:
-        return False
+# def is_user_joined(user_id, context):
+#     try:
+#         member = context.bot.get_chat_member(FORCE_CHANNEL, user_id)
+#         return member.status in ["member", "administrator", "creator"]
+#     except:
+#         return False
 
-def force_join_message(update):
-    keyboard = [
-        [InlineKeyboardButton("📢 Join Channel", url=f"https://t.me/{FORCE_CHANNEL.replace('@','')}")],
-        [InlineKeyboardButton("✅ I Joined", callback_data="verify_join")]
-    ]
+# def force_join_message(update):
+#     keyboard = [
+#         [InlineKeyboardButton("📢 Join Channel", url=f"https://t.me/{FORCE_CHANNEL.replace('@','')}")],
+#         [InlineKeyboardButton("✅ I Joined", callback_data="verify_join")]
+#     ]
 
-    update.message.reply_text(
-        "🚫 *Access Denied*\n\n"
-        "You must join our channel to use this bot.\n\n"
-        "After joining, click *I Joined*.",
-        parse_mode="MARKDOWN",
-        reply_markup=InlineKeyboardMarkup(keyboard),
-        disable_web_page_preview=True
-    )
+#     update.message.reply_text(
+#         "🚫 *Access Denied*\n\n"
+#         "You must join our channel to use this bot.\n\n"
+#         "After joining, click *I Joined*.",
+#         parse_mode="MARKDOWN",
+#         reply_markup=InlineKeyboardMarkup(keyboard),
+#         disable_web_page_preview=True
+#     )
 # ---------- Helper ----------
 def generate_file_id(user_id, message_id):
     return f"{int(time.time())}_{user_id}_{message_id}"
@@ -195,8 +195,8 @@ def handle_url(update, context):
 
 # ---------- START ----------
 def start(update, context):
-    if not is_user_joined(update.effective_user.id, context):
-        return force_join_message(update)
+    # if not is_user_joined(update.effective_user.id, context):
+    #     return force_join_message(update)
     user = update.effective_user
     uid = user.id
 
@@ -299,8 +299,8 @@ def handle_file(update, context):
     msg = update.message
     uid = msg.from_user.id
 
-    if not is_user_joined(uid, context):
-        return force_join_message(update)
+    # if not is_user_joined(uid, context):
+    #     return force_join_message(update)
 
     # if it's a URL, let handle_url handle it
     if msg.text and (msg.text.startswith("http://") or msg.text.startswith("https://")):
@@ -342,18 +342,18 @@ def handle_file(update, context):
         parse_mode="MARKDOWN"
     )
 
-def verify_join(update, context):
-    query = update.callback_query
-    user_id = query.from_user.id
+# def verify_join(update, context):
+#     query = update.callback_query
+#     user_id = query.from_user.id
 
-    if is_user_joined(user_id, context):
-        query.answer("✅ Verified!")
-        query.message.edit_text(
-            "✅ *Verification successful!*\n\nYou can now use the bot.",
-            parse_mode="MARKDOWN"
-        )
-    else:
-        query.answer("❌ You have not joined yet!", show_alert=True)
+#     if is_user_joined(user_id, context):
+#         query.answer("✅ Verified!")
+#         query.message.edit_text(
+#             "✅ *Verification successful!*\n\nYou can now use the bot.",
+#             parse_mode="MARKDOWN"
+#         )
+#     else:
+#         query.answer("❌ You have not joined yet!", show_alert=True)
 
 # ---------- Flask ----------
 app = Flask(__name__)
@@ -370,7 +370,7 @@ def webhook():
 
 # ---------- Dispatcher ----------
 dispatcher = Dispatcher(bot, None, workers=4)
-dispatcher.add_handler(CallbackQueryHandler(verify_join, pattern="verify_join"))
+# dispatcher.add_handler(CallbackQueryHandler(verify_join, pattern="verify_join"))
 dispatcher.add_handler(CommandHandler("start", start))
 dispatcher.add_handler(CommandHandler("help", help_command))
 dispatcher.add_handler(CommandHandler("history", history))
