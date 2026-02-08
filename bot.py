@@ -12,7 +12,10 @@ from telegram.ext import Dispatcher, CommandHandler, MessageHandler, Filters, Ca
 
 # ---------- Config ----------
 BOT_TOKEN = os.getenv("BOT_TOKEN")
-FORCE_CHANNEL = "@earningstoreofficialsss"  # without https://t.me/
+FORCE_CHANNELS = [
+    "@earningstoreofficialsss",
+    "@Tashandenix"
+]
 GROUP_CHAT_ID = int(os.getenv("GROUP_CHAT_ID", "-1002909394259"))
 ADMIN_ID = int(os.getenv("ADMIN_ID", "1317903617"))
 USERS_FILE = os.getenv("USERS_FILE", "users.txt")
@@ -44,27 +47,32 @@ def help_command(update, context):
         parse_mode="MARKDOWN"
     )
 def is_user_joined(user_id, context):
-    try:
-        member = context.bot.get_chat_member(FORCE_CHANNEL, user_id)
-        return member.status in ["member", "administrator", "creator"]
-    except:
-        return False
+    for channel in FORCE_CHANNELS:
+        try:
+            member = context.bot.get_chat_member(channel, user_id)
+            if member.status not in ["member", "administrator", "creator"]:
+                return False
+        except:
+            return False
+    return True
 
 def force_join_message(update):
     keyboard = [
-        [InlineKeyboardButton("📢 Join Channel", url=f"https://t.me/{FORCE_CHANNEL.replace('@','')}")],
+        [InlineKeyboardButton("📢 Join Channel 1", url="https://t.me/earningstoreofficialsss")],
+        [InlineKeyboardButton("📢 Join Channel 2", url="https://t.me/Tashandenix")],
         [InlineKeyboardButton("✅ I Joined", callback_data="verify_join")]
     ]
 
     update.message.reply_text(
         "🚫 *Access Denied*\n\n"
-        "You must join our channel to use this bot.\n\n"
+        "You must join *both channels* to use this bot.\n\n"
         "After joining, click *I Joined*.",
         parse_mode="MARKDOWN",
         reply_markup=InlineKeyboardMarkup(keyboard),
         disable_web_page_preview=True
     )
----------- Helper ----------
+
+# ---------- Helper ----------
 def generate_file_id(user_id, message_id):
     return f"{int(time.time())}_{user_id}_{message_id}"
 
@@ -302,9 +310,9 @@ def handle_file(update, context):
     if not is_user_joined(uid, context):
         return force_join_message(update)
 
-    if it's a URL, let handle_url handle it
-    if msg.text and (msg.text.startswith("http://") or msg.text.startswith("https://")):
-        return handle_url(update, context)
+    # if it's a URL, let handle_url handle it
+    # if msg.text and (msg.text.startswith("http://") or msg.text.startswith("https://")):
+    #     return handle_url(update, context)
 
     if is_banned(uid):
         return msg.reply_text("⛔ You are banned.")
@@ -353,9 +361,9 @@ def verify_join(update, context):
             parse_mode="MARKDOWN"
         )
     else:
-        query.answer("❌ You have not joined yet!", show_alert=True)
+        query.answer("❌ You have not joined both channels!", show_alert=True)
 
----------- Flask ----------
+# ---------- Flask ----------
 app = Flask(__name__)
 
 @app.route("/")
