@@ -12,10 +12,16 @@ from telegram.ext import Dispatcher, CommandHandler, MessageHandler, Filters, Ca
 
 # ---------- Config ----------
 BOT_TOKEN = os.getenv("BOT_TOKEN")
+# FORCE_CHANNELS = [
+#     "@earningstoreofficialsss",
+#     "@Tashandenix"
+# ]
+
 FORCE_CHANNELS = [
-    "@earningstoreofficialsss",
-    "@Tashandenix"
+    "@earningstoreofficialsss"
 ]
+
+
 GROUP_CHAT_ID = int(os.getenv("GROUP_CHAT_ID", "-1002909394259"))
 ADMIN_ID = int(os.getenv("ADMIN_ID", "1317903617"))
 USERS_FILE = os.getenv("USERS_FILE", "users.txt")
@@ -57,15 +63,20 @@ def is_user_joined(user_id, context):
     return True
 
 def force_join_message(update):
+    # keyboard = [
+    #     [InlineKeyboardButton("📢 Join Channel 1", url="https://t.me/earningstoreofficialsss")],
+    #     [InlineKeyboardButton("📢 Join Channel 2", url="https://t.me/Tashandenix")],
+    #     [InlineKeyboardButton("✅ I Joined", callback_data="verify_join")]
+    # ]
     keyboard = [
-        [InlineKeyboardButton("📢 Join Channel 1", url="https://t.me/earningstoreofficialsss")],
-        [InlineKeyboardButton("📢 Join Channel 2", url="https://t.me/Tashandenix")],
-        [InlineKeyboardButton("✅ I Joined", callback_data="verify_join")]
-    ]
+    [InlineKeyboardButton("📢 Join Channel", url="https://t.me/earningstoreofficialsss")],
+    [InlineKeyboardButton("✅ I Joined", callback_data="verify_join")]
+]
 
     update.message.reply_text(
         "🚫 *Access Denied*\n\n"
-        "You must join *both channels* to use this bot.\n\n"
+        # "You must join *both channels* to use this bot.\n\n"
+        "You must join the *channel* to use this bot.\n\n"
         "After joining, click *I Joined*.",
         parse_mode="MARKDOWN",
         reply_markup=InlineKeyboardMarkup(keyboard),
