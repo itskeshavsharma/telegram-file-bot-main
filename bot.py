@@ -18,7 +18,9 @@ BOT_TOKEN = os.getenv("BOT_TOKEN")
 # ]
 
 FORCE_CHANNELS = [
-    "@earningstoreofficialsss"
+    "@earningstoreofficialsss",   # public
+    # "@Tashandenix",               # public (if exists)
+    -1001707828848                # private (Denix Predictions 🚀)
 ]
 
 
@@ -52,26 +54,44 @@ def help_command(update, context):
         "⚠️ Adult or illegal content = permanent ban",
         parse_mode="MARKDOWN"
     )
+# def is_user_joined(user_id, context):
+#     for channel in FORCE_CHANNELS:
+#         try:
+#             member = context.bot.get_chat_member(channel, user_id)
+#             if member.status not in ["member", "administrator", "creator"]:
+#                 return False
+#         except:
+#             return False
+#     return True
 def is_user_joined(user_id, context):
     for channel in FORCE_CHANNELS:
         try:
-            member = context.bot.get_chat_member(channel, user_id)
-            if member.status not in ["member", "administrator", "creator"]:
+            member = context.bot.get_chat_member(chat_id=channel, user_id=user_id)
+            if member.status in ["left", "kicked"]:
                 return False
-        except:
+        except Exception as e:
+            logger.error(f"Join check failed for {channel}: {e}")
             return False
     return True
 
+
 def force_join_message(update):
+    keyboard = [
+    [InlineKeyboardButton("📢 Join Channel 1", url="https://telegram.me/earningstoreofficialsss")],
+    [InlineKeyboardButton("📢 Join Private Channel", url="https://telegram.me/+yp4bIjwA0fs1MDJl")],
+    [InlineKeyboardButton("✅ I Joined", callback_data="verify_join")]
+]
+
     # keyboard = [
     #     [InlineKeyboardButton("📢 Join Channel 1", url="https://t.me/earningstoreofficialsss")],
     #     [InlineKeyboardButton("📢 Join Channel 2", url="https://t.me/Tashandenix")],
     #     [InlineKeyboardButton("✅ I Joined", callback_data="verify_join")]
     # ]
-    keyboard = [
-    [InlineKeyboardButton("📢 Join Channel", url="https://t.me/earningstoreofficialsss")],
-    [InlineKeyboardButton("✅ I Joined", callback_data="verify_join")]
-]
+#     keyboard = [
+#     [InlineKeyboardButton("📢 Join Channel", url="https://t.me/earningstoreofficialsss")],
+#     [InlineKeyboardButton("✅ I Joined", callback_data="verify_join")]
+# ]
+    
 
     update.message.reply_text(
         "🚫 *Access Denied*\n\n"
