@@ -394,7 +394,7 @@ def verify_join(update, context):
             parse_mode="MARKDOWN"
         )
     else:
-        query.answer("❌ You have not joined both channels!", show_alert=True)
+        query.answer("❌ You have not joined all channels!", show_alert=True)
 
 # ---------- Flask ----------
 app = Flask(__name__)
