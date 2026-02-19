@@ -19,7 +19,7 @@ BOT_TOKEN = os.getenv("BOT_TOKEN")
 
 FORCE_CHANNELS = [
     "@earningstoreofficialsss",   # public
-    "BhramsBots1",
+    "@BhramsBots1",
     # "@Tashandenix",               # public (if exists)
     -1001707828848                # private (Denix Predictions 🚀)
 ]
