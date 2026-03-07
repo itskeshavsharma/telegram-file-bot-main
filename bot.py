@@ -145,6 +145,31 @@ def get_user_history(uid, limit=5):
     records = [x for x in lines if x.startswith(str(uid) + "|")]
     return records[-limit:]
 
+# ---------- STATS ----------
+def stats(update, context):
+    if update.effective_user.id != ADMIN_ID:
+        return update.message.reply_text("⛔ Admin only.")
+
+    total_users = 0
+    banned_users = 0
+
+    if os.path.exists(USERS_FILE):
+        with open(USERS_FILE) as f:
+            total_users = len([x for x in f if x.strip()])
+
+    if os.path.exists(BANNED_FILE):
+        with open(BANNED_FILE) as f:
+            banned_users = len([x for x in f if x.strip()])
+
+    active_users = total_users - banned_users
+
+    update.message.reply_text(
+        f"📊 *Bot Statistics*\n\n"
+        f"👥 Total Users : `{total_users}`\n"
+        f"✅ Active Users : `{active_users}`\n"
+        f"🚫 Banned Users : `{banned_users}`",
+        parse_mode="MARKDOWN"
+    )
 # ---------- URL VALIDATION ----------
 VALID_EXTENSIONS = (".jpg", ".jpeg", ".png", ".gif", ".bmp", ".webp")
 
@@ -270,28 +295,39 @@ def start(update, context):
     )
 
 # ---------- ANNOUNCE ----------
+# ---------- ANNOUNCE ----------
 def announce(update, context):
     if update.effective_user.id != ADMIN_ID:
         return update.message.reply_text("⛔ Admin only.")
 
     if not context.args:
-        return update.message.reply_text("Usage: /announce text")
+        return update.message.reply_text("Usage: /announce message")
 
-    txt = " ".join(context.args)
+    message = " ".join(context.args)
 
-    sent = failed = 0
-    for uid in open(USERS_FILE):
-        uid = uid.strip()
+    sent = 0
+    failed = 0
+
+    if not os.path.exists(USERS_FILE):
+        return update.message.reply_text("No users found.")
+
+    with open(USERS_FILE) as f:
+        users = [x.strip() for x in f if x.strip()]
+
+    for uid in users:
         try:
-            bot.send_message(uid, txt)
+            bot.send_message(uid, message)
             sent += 1
             time.sleep(0.03)
         except:
             failed += 1
 
-    update.message.reply_text(f"Done.\nSent: {sent}\nFailed: {failed}")
-
-
+    update.message.reply_text(
+        f"📢 *Announcement Report*\n\n"
+        f"📨 Sent : `{sent}` users\n"
+        f"❌ Failed : `{failed}` users",
+        parse_mode="MARKDOWN"
+    )
 # ---------- Ban / Unban ----------
 def ban(update, context):
     if update.effective_user.id != ADMIN_ID:
@@ -420,6 +456,7 @@ dispatcher.add_handler(CommandHandler("unban", unban))
 dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, handle_url))
 dispatcher.add_handler(MessageHandler(Filters.all & ~Filters.command, handle_file))
 dispatcher.add_handler(CommandHandler("announce", announce))
+dispatcher.add_handler(CommandHandler("stats", stats))
 
 # ---------- Main ----------
 if __name__ == "__main__":
