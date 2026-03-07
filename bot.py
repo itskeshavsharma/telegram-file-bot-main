@@ -110,13 +110,16 @@ def generate_file_id(user_id, message_id):
     return f"{int(time.time())}_{user_id}_{message_id}"
 
 def save_user(uid):
-    if not os.path.exists(USERS_FILE):
-        open(USERS_FILE, "w").close()
-    with open(USERS_FILE, "r") as f:
-        users = set(x.strip() for x in f if x.strip())
-    if str(uid) not in users:
+    uid = str(uid)
+    users = set()
+
+    if os.path.exists(USERS_FILE):
+        with open(USERS_FILE, "r") as f:
+            users = set(x.strip() for x in f if x.strip())
+
+    if uid not in users:
         with open(USERS_FILE, "a") as f:
-            f.write(f"{uid}\n")
+            f.write(uid + "\n")
 
 def load_banned():
     if not os.path.exists(BANNED_FILE):
@@ -305,14 +308,14 @@ def announce(update, context):
 
     message = " ".join(context.args)
 
-    sent = 0
-    failed = 0
-
     if not os.path.exists(USERS_FILE):
         return update.message.reply_text("No users found.")
 
     with open(USERS_FILE) as f:
-        users = [x.strip() for x in f if x.strip()]
+        users = list(set(x.strip() for x in f if x.strip()))
+
+    sent = 0
+    failed = 0
 
     for uid in users:
         try:
@@ -323,10 +326,9 @@ def announce(update, context):
             failed += 1
 
     update.message.reply_text(
-        f"📢 *Announcement Report*\n\n"
-        f"📨 Sent : `{sent}` users\n"
-        f"❌ Failed : `{failed}` users",
-        parse_mode="MARKDOWN"
+        f"📢 Announcement Report\n\n"
+        f"📨 Sent : {sent} users\n"
+        f"❌ Failed : {failed} users"
     )
 # ---------- Ban / Unban ----------
 def ban(update, context):
