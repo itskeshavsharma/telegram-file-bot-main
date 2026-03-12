@@ -20,6 +20,7 @@ BOT_TOKEN = os.getenv("BOT_TOKEN")
 FORCE_CHANNELS = [
     "@earningstoreofficialsss",   # public
     "@BhramsBots1",
+    -1001484298206,
     # "@Tashandenix",               # public (if exists)
     -1001707828848                # private (Denix Predictions 🚀)
 ]
@@ -78,9 +79,10 @@ def is_user_joined(user_id, context):
 
 def force_join_message(update):
     keyboard = [
-    [InlineKeyboardButton("📢 Join Channel 1", url="https://telegram.me/earningstoreofficialsss")],
-    [InlineKeyboardButton("📢 Join Channel 2", url="https://telegram.me/BhramsBots1")],
-    [InlineKeyboardButton("📢 Join Private Channel", url="https://telegram.me/+yp4bIjwA0fs1MDJl")],
+    [InlineKeyboardButton("📢 Join Channel 1", url="https://telegram.me/+n5rSfKVGKnc4ZTQ1")],
+    [InlineKeyboardButton("📢 Join Channel 2", url="https://telegram.me/earningstoreofficialsss")],
+    [InlineKeyboardButton("📢 Join Channel 3", url="https://telegram.me/BhramsBots1")],
+    [InlineKeyboardButton("📢 Join Private 4", url="https://telegram.me/+yp4bIjwA0fs1MDJl")],
     [InlineKeyboardButton("✅ I Joined", callback_data="verify_join")]
 ]
 
@@ -98,7 +100,7 @@ def force_join_message(update):
     update.message.reply_text(
         "🚫 *Access Denied*\n\n"
         # "You must join *both channels* to use this bot.\n\n"
-        "You must join the *channel* to use this bot.\n\n"
+        "You must join the *All Channels* to use this bot.\n\n"
         "After joining, click *I Joined*.",
         parse_mode="MARKDOWN",
         reply_markup=InlineKeyboardMarkup(keyboard),
