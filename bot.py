@@ -20,7 +20,7 @@ BOT_TOKEN = os.getenv("BOT_TOKEN")
 FORCE_CHANNELS = [
     "@earningstoreofficialsss",   # public
     "@BhramsBots1",
-    -1001484298206,
+    # -1001484298206,
     # "@Tashandenix",               # public (if exists)
     -1001707828848                # private (Denix Predictions 🚀)
 ]
@@ -79,10 +79,10 @@ def is_user_joined(user_id, context):
 
 def force_join_message(update):
     keyboard = [
-    [InlineKeyboardButton("📢 Join Channel 1", url="https://telegram.me/+n5rSfKVGKnc4ZTQ1")],
-    [InlineKeyboardButton("📢 Join Channel 2", url="https://telegram.me/earningstoreofficialsss")],
-    [InlineKeyboardButton("📢 Join Channel 3", url="https://telegram.me/BhramsBots1")],
-    [InlineKeyboardButton("📢 Join Private 4", url="https://telegram.me/+yp4bIjwA0fs1MDJl")],
+    # [InlineKeyboardButton("📢 Join Channel 1", url="https://telegram.me/+n5rSfKVGKnc4ZTQ1")],
+    [InlineKeyboardButton("📢 Join Channel 1", url="https://telegram.me/earningstoreofficialsss")],
+    [InlineKeyboardButton("📢 Join Channel 2", url="https://telegram.me/BhramsBots1")],
+    [InlineKeyboardButton("📢 Join Private 3", url="https://telegram.me/+yp4bIjwA0fs1MDJl")],
     [InlineKeyboardButton("✅ I Joined", callback_data="verify_join")]
 ]
 
