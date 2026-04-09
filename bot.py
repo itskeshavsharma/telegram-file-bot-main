@@ -22,7 +22,7 @@ FORCE_CHANNELS = [
     "@BhramsBots1",
     # -1001484298206,
     # "@Tashandenix",               # public (if exists)
-    -1001707828848                # private (Denix Predictions 🚀)
+    # -1001707828848                # private (Denix Predictions 🚀)
 ]
 
 
