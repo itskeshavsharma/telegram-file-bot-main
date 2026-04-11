@@ -80,7 +80,7 @@ def is_user_joined(user_id, context):
 def force_join_message(update):
     keyboard = [
     # [InlineKeyboardButton("📢 Join Channel 1", url="https://telegram.me/+rQVQJChsn5NiYTA1")],
-    # [InlineKeyboardButton("📢 Join Channel 1", url="https://telegram.me/+FmTMgBnasCA2MjM1")],
+    [InlineKeyboardButton("📢 Join Bonus channel", url="https://telegram.me/+Zh5LzmwPsnAxYzU9")],
     [InlineKeyboardButton("📢 Join Channel 1", url="https://telegram.me/earningstoreofficialsss")],
     [InlineKeyboardButton("📢 Join Channel 2", url="https://telegram.me/BhramsBots1")],
     [InlineKeyboardButton("📢 Join Private 3", url="https://telegram.me/Earning_Flash")],
