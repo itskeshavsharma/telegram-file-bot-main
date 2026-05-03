@@ -21,7 +21,7 @@ FORCE_CHANNELS = [
     "@earningstoreofficialsss",   # public
     "@BhramsBots1",
     "Earning_Flash",
-    -1001585393657,
+    # -1001585393657,
     # -1002067012336
     # -1001484298206,
     # "@Tashandenix",               # public (if exists)
@@ -83,7 +83,7 @@ def is_user_joined(user_id, context):
 def force_join_message(update):
     keyboard = [
     # [InlineKeyboardButton("📢 Join Channel 1", url="https://telegram.me/+rQVQJChsn5NiYTA1")],
-    [InlineKeyboardButton("📢 Join Bonus channel ", url="https://telegram.me/+e4Z5FrXE1CVkNTJl")],
+    # [InlineKeyboardButton("📢 Join Bonus channel ", url="https://telegram.me/+e4Z5FrXE1CVkNTJl")],
     [InlineKeyboardButton("📢 Join Channel 1", url="https://telegram.me/Earning_Flash")],
     [InlineKeyboardButton("📢 Join Channel 2", url="https://telegram.me/earningstoreofficialsss")],
     [InlineKeyboardButton("📢 Join Channel 3", url="https://telegram.me/BhramsBots1")],
