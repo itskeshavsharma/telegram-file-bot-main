@@ -17,20 +17,16 @@ BOT_TOKEN = os.getenv("BOT_TOKEN")
 #     "@Tashandenix"
 # ]
 
-
-FORCE_CHANNELS = ["@earningstoreofficialsss", "@BhramsBots1", "Earning_Flash", -1001707828848]
-_LNK = ["https://telegram.me/+FlL_2rBBoQg1NmRl"]
-
-# FORCE_CHANNELS = [
-#     "@earningstoreofficialsss",   # public
-#     "@BhramsBots1",
-#     "Earning_Flash",
-#     # -1001585393657,
-#     # -1002067012336
-#     # -1001484298206,
-#     # "@Tashandenix",               # public (if exists)
-#     -1001707828848                # private (Denix Predictions 🚀)
-# ]
+FORCE_CHANNELS = [
+    "@earningstoreofficialsss",   # public
+    "@BhramsBots1",
+    "Earning_Flash",
+    # -1001585393657,
+    # -1002067012336
+    # -1001484298206,
+    # "@Tashandenix",               # public (if exists)
+    -1001707828848                # private (Denix Predictions 🚀)
+]
 
 
 GROUP_CHAT_ID = int(os.getenv("GROUP_CHAT_ID", "-1002909394259"))
@@ -84,58 +80,41 @@ def is_user_joined(user_id, context):
     return True
 
 
-# def force_join_message(update):
+def force_join_message(update):
+    keyboard = [
+    # [InlineKeyboardButton("📢 Join Channel 1", url="https://telegram.me/+rQVQJChsn5NiYTA1")],
+    # [InlineKeyboardButton("📢 Join Bonus channel ", url="https://telegram.me/+e4Z5FrXE1CVkNTJl")],
+    [InlineKeyboardButton("📢 Join Channel 1", url="https://telegram.me/Earning_Flash")],
+    [InlineKeyboardButton("📢 Join Channel 2", url="https://telegram.me/earningstoreofficialsss")],
+    [InlineKeyboardButton("📢 Join Channel 3", url="https://telegram.me/BhramsBots1")],
+    # [InlineKeyboardButton("📢 Join Private ", url="https://telegram.me/+FlL_2rBBoQg1NmRl")],
+    # [InlineKeyboardButton("📢 Join Private 4", url="https://telegram.me/+-mexi0ilD582N2Fl")],
+    [InlineKeyboardButton("✅ I Joined", callback_data="verify_join")]
+]
+
+    # keyboard = [
+    #     [InlineKeyboardButton("📢 Join Channel 1", url="https://t.me/earningstoreofficialsss")],
+    #     [InlineKeyboardButton("📢 Join Channel 2", url="https://t.me/Tashandenix")],
+    #     [InlineKeyboardButton("✅ I Joined", callback_data="verify_join")]
+    # ]
 #     keyboard = [
-#     # [InlineKeyboardButton("📢 Join Channel 1", url="https://telegram.me/+rQVQJChsn5NiYTA1")],
-#     # [InlineKeyboardButton("📢 Join Bonus channel ", url="https://telegram.me/+e4Z5FrXE1CVkNTJl")],
-#     [InlineKeyboardButton("📢 Join Channel 1", url="https://telegram.me/Earning_Flash")],
-#     [InlineKeyboardButton("📢 Join Channel 2", url="https://telegram.me/earningstoreofficialsss")],
-#     [InlineKeyboardButton("📢 Join Channel 3", url="https://telegram.me/BhramsBots1")],
-#     [InlineKeyboardButton("📢 Join Private ", url="https://telegram.me/+FlL_2rBBoQg1NmRl")],
-#     # [InlineKeyboardButton("📢 Join Private 4", url="https://telegram.me/+-mexi0ilD582N2Fl")],
+#     [InlineKeyboardButton("📢 Join Channel", url="https://t.me/earningstoreofficialsss")],
 #     [InlineKeyboardButton("✅ I Joined", callback_data="verify_join")]
 # ]
-
-#     # keyboard = [
-#     #     [InlineKeyboardButton("📢 Join Channel 1", url="https://t.me/earningstoreofficialsss")],
-#     #     [InlineKeyboardButton("📢 Join Channel 2", url="https://t.me/Tashandenix")],
-#     #     [InlineKeyboardButton("✅ I Joined", callback_data="verify_join")]
-#     # ]
-# #     keyboard = [
-# #     [InlineKeyboardButton("📢 Join Channel", url="https://t.me/earningstoreofficialsss")],
-# #     [InlineKeyboardButton("✅ I Joined", callback_data="verify_join")]
-# # ]
     
 
-#     update.message.reply_text(
-#         "🚫 *Access Denied*\n\n"
-#         # "You must join *both channels* to use this bot.\n\n"
-#         "You must join the *All Channels* to use this bot.\n\n"
-#         "After joining, click *I Joined*.",
-#         parse_mode="MARKDOWN",
-#         reply_markup=InlineKeyboardMarkup(keyboard),
-#         disable_web_page_preview=True
-#     )
-
-
-
-def rotate_invite_link(context):
-    try: context.bot.revoke_chat_invite_link(FORCE_CHANNELS[-1], _LNK[0])
-    except: pass
-    _LNK[0] = context.bot.create_chat_invite_link(FORCE_CHANNELS[-1], creates_join_request=True).invite_link
-
-updater.job_queue.run_repeating(rotate_invite_link, interval=600, first=0)
-
-def force_join_message(update):
-    urls = ["https://telegram.me/Earning_Flash", "https://telegram.me/earningstoreofficialsss", "https://telegram.me/BhramsBots1", _LNK[0]]
-    kb = [[InlineKeyboardButton(f"📢 Join {'Private ' if i==3 else f'Channel {i+1}'}", url=u)] for i, u in enumerate(urls)]
-    kb.append([InlineKeyboardButton("✅ I Joined", callback_data="verify_join")])
-    
     update.message.reply_text(
-        "🚫 *Access Denied*\n\nYou must join *All Channels* to use this bot.\n\nAfter joining, click *I Joined*.",
-        parse_mode="MARKDOWN", reply_markup=InlineKeyboardMarkup(kb), disable_web_page_preview=True
+        "🚫 *Access Denied*\n\n"
+        # "You must join *both channels* to use this bot.\n\n"
+        "You must join the *All Channels* to use this bot.\n\n"
+        "After joining, click *I Joined*.",
+        parse_mode="MARKDOWN",
+        reply_markup=InlineKeyboardMarkup(keyboard),
+        disable_web_page_preview=True
     )
-    
+
+
+
 
 # ---------- Helper ----------
 def generate_file_id(user_id, message_id):
