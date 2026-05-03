@@ -87,7 +87,7 @@ def force_join_message(update):
     [InlineKeyboardButton("📢 Join Channel 1", url="https://telegram.me/Earning_Flash")],
     [InlineKeyboardButton("📢 Join Channel 2", url="https://telegram.me/earningstoreofficialsss")],
     [InlineKeyboardButton("📢 Join Channel 3", url="https://telegram.me/BhramsBots1")],
-    # [InlineKeyboardButton("📢 Join Private ", url="https://telegram.me/+FlL_2rBBoQg1NmRl")],
+    [InlineKeyboardButton("📢 Join Private ", url="https://telegram.me/+FlL_2rBBoQg1NmRl")],
     # [InlineKeyboardButton("📢 Join Private 4", url="https://telegram.me/+-mexi0ilD582N2Fl")],
     [InlineKeyboardButton("✅ I Joined", callback_data="verify_join")]
 ]
