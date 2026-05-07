@@ -21,6 +21,7 @@ FORCE_CHANNELS = [
     "@earningstoreofficialsss",   # public
     "@BhramsBots1",
     "@Earning_Flash",
+    -1002063639089,
     # -1001585393657,
     # -1002067012336
     # -1001484298206,
